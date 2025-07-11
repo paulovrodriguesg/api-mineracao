@@ -51,6 +51,9 @@ app.post('/consulta-celpe', authenticationMiddleware, async (req, res) => {
         'Content-Type': 'application/json',
       }
     });
+    if (response.data === '\r\n') {
+      return res.status(404).json({ error: 'Nenhum registro encontrado para o CNPJ' });
+    }
 
     return res.json(response.data);
   } catch (err) {
